@@ -1,0 +1,65 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <script>
+        //...
+        //Rest Operator
+        // {
+        //     let obj = { a:1, b:2, c:3}
+        //     let obj2 = obj;//같은 객체를 가리킨다.
+        //     console.log(obj2);
+        //     obj.b = 4;
+        //     console.log(obj2);
+        // }
+        // {            
+        //     let obj = { a:1, b:2, c:3}
+        //     let{...obj2} = obj;//객체 복사(하나 더 생김)
+        //     console.log(obj2);
+        //     obj.b = 4;
+        //     console.log(obj2);
+        // }
+        // {
+        //     let obj = { a:1, b:2, c:3, d:'4'}
+        //     let {a,c,...obj2}=obj;
+        //     //순서대로 앞에서부터 값 할당. 남는걸 ... 뒤에 붙은 애한테 다 떠넘긴다.
+        //     //앞의 할당이 모두 끝나고 남은것을 담기 때문에 rest operator은 맨 뒤에 위치해야함.
+        //     console.log(a, c,obj2);
+        //     //일치하는 녀석은 값을 그대로 주지만 없으면 undefined 뜨고 남는건 rest operator로 들어감
+        // }
+        // {
+        //     let arr = [1,2,3,4,5];//순서대로 복사가 일어난다.
+        //     let [c, d, ...arr2] = arr;
+        //     console.log(c,d,arr2);
+        // }
+
+        //..
+        //spread Operator
+        // {
+        //     let s1 = {name:'홍길동', phone:'010-1111-11111',age:21}
+        //     let s2 = {phone:'010-2222-222222',age:22}
+        //     let s3 = {phone:'010-3333-3333'}
+        //     let s4 = {...s1}//복사
+        //     let s5 = {...s1,...s3}//오브젝트의 내용을 복사하고 덮어썼다. 복사+덮어쓰기
+        //     console.log(s4);
+        //     console.log(s5);
+
+        //     let s6 = {...s3,...s2}//오브젝트의 내용을 복사하고 덮어썼다. 복사+덮어쓰기
+        //     console.log(s6);
+        //      //잇으면 덮어쓰고 없으면 추가하고
+        // }
+        {//고냥 합해라
+            let arr = [1,2,3,4,5];
+            let arr2 = [3,4,5,6,7];
+            let arr3 = [...arr, ...arr2];//arr3는 arr와 arr2의 요소를 모두 포함하는 새로운 배열입니다.
+            let arr4 = arr+arr2;
+            console.log(arr3);
+            console.log(arr4);
+        }
+    </script>
+</body>
+</html>

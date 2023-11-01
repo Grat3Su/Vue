@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <script>
+        //general
+        let name ='hond';
+        let phone = '010-111-1111';
+        let age = 20;
+
+        //일반적인 객체 property
+        let person={
+            aaa:name,
+            bbb:phone,
+            ccc:age
+        }
+        console.log(person);
+
+        //일반적인 객체 property지만 property의 이름과 변수명이 같다.
+        let person2={
+            name:name,
+            phone:phone,
+            age:age
+        }
+        console.log(person2);
+        
+        //shorthand property : property를 축약해서 쓰겠다.
+        let person3={
+            name,
+            phone,
+            age
+        }
+        console.log(person3);
+
+        //shorthand property : property를 축약해서 쓰겠다.
+        let addr = "My Addr";
+        let person4={
+            name,
+            phone,
+            age,
+            addr,
+            msg:'hello'
+        }
+        console.log(person4);
+    </script>
+</body>
+</html>

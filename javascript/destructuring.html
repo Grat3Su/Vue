@@ -1,0 +1,108 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <script>
+        {
+            //일반적인 배열의 항목(value)을 개별 변수에 담는 과정
+            let numbers = [0,1,2,3,4];
+            let a = numbers[0];
+            let b = numbers[1];
+            let c = numbers[2];
+            let d = numbers[3];
+            let e = numbers[4];
+
+            console.log(a,b,c,d,e);
+        }
+        {
+            let numbers = [0,1,2,3,4];            
+            let [a,b,c,d,e] = numbers;
+            console.log(a,b,c,d,e);
+        }
+        {
+            let numbers = [0,1,2,3,4];            
+            let [a,b,c] = numbers;
+            console.log(a,b,c);
+        }
+        {
+            let numbers = [0,1,2,3,4];            
+            let [a,b,...c] = numbers;
+            console.log(a,b,c);
+        }
+        {
+            let text = 'Hello';
+            let[a,b,c,...d] = text;
+            console.log(a,b,c,d);
+        }
+        {
+            let text = 'Hello';
+            let[a,,c,...d] = text;
+            console.log(a,c,d);
+        }
+        {
+            let a,b,c;
+            [a=3, b=4,c]=[1];
+            console.log(a,b,c);//c는 default value가 없어서 undefined
+        }
+        {
+            let a = 'Hello';
+            let b = 'World';
+
+            [a,b] = [b,a];
+            console.log(a,b);
+        }
+        {
+            //object
+            let obj = {name:'hong', phone:'010-1111-11111', age:20}
+            let{name, age} = obj;
+            console.log(name,age);//안에 있는거라서 뺄 수 있따.
+
+            let {a,b} = obj;
+            console.log(a,b);
+
+            let{name:c, age:d} = obj;
+            console.log(c,d);
+        }
+        {
+            //getJson();
+            getJson2();
+            squadDestructuring()
+        }
+
+        async function getJson(){
+            let response = await fetch('./fetchResult.json');
+            let data = await response.json();
+            console.log(data);
+
+            //destructuring을 사용하지 않는 경우
+            let members = data.members;
+            console.log(members);
+
+            //destructuring을 사용하는 경우
+            let{members:hero} = data;
+            console.log("hero");
+        }
+
+        //실압근 destructuring
+        async function getJson2(){
+            let response = await fetch('./fetchResult.json');
+            let {members} = await response.json();
+            console.log(members);
+        }
+
+        async function squadDestructuring(){
+            let response = await fetch('./OM.json');
+            let{members} = await response.json();
+            for(member of members){
+                let{squadName}=member;
+                console.log(squadName);
+            }
+        }
+
+    </script>
+</body>
+</html>

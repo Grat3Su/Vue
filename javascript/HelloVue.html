@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <script src="https://unpkg.com/vue@3/dist/vue.global.js"></script>
+</head>
+<body>
+    <div id="app">
+        {{text}}
+    </div>
+
+    <script>
+        //console.log(Vue);
+        const {createApp, ref} = Vue;
+        
+        //Vue app을 만들기 위한  기본 메소드인 createApp()를 호출하면서 app와 관련된 다양한 내용을 객체로 전달
+        //전달되는 객체는 setup()를 구성하고 객체를 리턴
+        createApp({
+            setup(){
+                const text = ref('Hello, Vue!');
+
+                return{
+                    text//shorthandProperty 
+                }
+            }
+        }).mount('#app');
+
+        
+    </script>
+</body>
+</html>
