@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Document</title>
+</head>
+
+<body>
+  <div id="app">
+    <p>Message: {{ msg }}</p>
+    <div v-html="rawHtml"></div>
+    <div v-bind:id="dynamicId"></div>
+    <!-- {{ number + 1 }}
+    {{ ok ? 'YES' : 'NO' }}
+    {{ message.split('').reverse().join('') }}
+    <div :id="`list-${id}`"></div> -->
+  </div>
+
+  <script src="https://unpkg.com/vue@3/dist/vue.global.js"></script>
+  <script>
+    const { createApp, ref } = Vue
+
+    const app = createApp({
+      setup() {
+        const rawHtml = ref('<span style="color:red">This should be red.</span>')
+        const seen = ref(true)
+        const dynamicId = ref('my-id')
+        return {
+          seen,
+          rawHtml,
+          dynamicId
+        }
+      }
+    })
+
+    app.mount('#app')
+  </script>
+</body>
+
+</html>

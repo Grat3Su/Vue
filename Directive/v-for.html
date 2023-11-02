@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <div id="app">
+        <ul>
+            <!-- <li v-for="어느 자료구조에서 무엇을 ">ㅋ</li> -->
+            <!-- <li v-for="(item) in arrayItems">{{item}}</li> -->
+            <li v-for="(item,index) in arrayItems" v-bind:key="index">{{item}}</li>            
+        </ul>
+        <hr>
+        <ul>
+            <li v-for="(item,index) in objArrayItems" v-bind:key="index">{{item.name}} {{item.price}}</li>
+        </ul>
+        <hr>
+        <ul>
+            <li v-for="(item,index) in listcomputed" v-bind:key="index">{{item.name}} {{item.price}}</li>
+        </ul>
+        
+    </div>
+    
+    <script src="https://unpkg.com/vue@3/dist/vue.global.js"></script>
+    <script>
+        let studentList = ['java', 'db', 'spring','vue']
+        let objList=[
+            {name:'java',price:20000},
+            {name:'db',price:23002},
+            {name:'spring',price:124123},
+            {name:'vue',price:512344},
+        ]
+
+        const {createApp, ref, computed} = Vue;
+
+        const listcomputed = computed(()=>
+                    objList.filter((item)=>item.price>20000)
+                );
+
+        const filteredItem=computed(()=>objArrayItems.filter((el)=>el.price>20000))
+
+        createApp({//객체가 만들어지고 리턴될것
+            setup(){
+                const arrayItems = ref(studentList);
+                const objArrayItems = ref(objList);
+
+                return{
+                    arrayItems,
+                    objArrayItems,
+                    listcomputed
+                }
+            }
+        }).mount('#app');
+    </script>
+</body>
+</html>

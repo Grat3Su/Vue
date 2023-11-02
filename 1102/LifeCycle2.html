@@ -1,0 +1,68 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <div id="app">
+        {{text}}
+        <br>
+        <button @click="changeText">변경</button>
+        <div id="abc"> </div>
+    </div>
+    
+    <script src="https://unpkg.com/vue@3/dist/vue.global.js"></script>
+    <script>
+        //console.log(Vue);// 위의 저걸로 Vue 객체가 만들어짐
+        const {createApp, ref,onBeforeMount,onMounted,onBeforeUpdate,onUpdated} = Vue;
+        
+        createApp({//객체가 만들어지고 리턴될것
+            setup(){//ceate 역할
+                console.log("setup");
+                console.log("setup", document.querySelector("#abc"));
+                const text = ref('Hello, Vue!');                
+
+                const changeText=function(){//메세지가 참조한 값을 변경?
+                    text.value = "Hello World";
+                }
+
+                const fetchData = function(){
+                    console.log("초기 데이터 가져오기");
+                }
+                fetchData();
+
+                //LifeCycle Hooks
+                onBeforeMount(() => {
+                    console.log("onBeforeMount");
+                    console.log("onBeforeMount", document.querySelector("#abc"));
+                    
+                });
+
+                onMounted(() => {
+                    console.log("onMount");
+                    console.log("onMount", document.querySelector("#abc"));
+                });
+
+                onBeforeUpdate(() => {
+                    console.log("onBeforeUpdate");
+                    console.log("onBeforeUpdate", document.querySelector("#abc"));
+                });
+
+                onUpdated(() => {
+                    console.log("onUpdated");
+                    console.log("onUpdated", document.querySelector("#abc"));
+                });
+
+                return{
+                    text,
+                    changeText,
+                }
+            }
+        }).mount('#app');
+
+        
+    </script>
+</body>
+</html>

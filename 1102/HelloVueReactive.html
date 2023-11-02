@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <div id="app">
+        {{message.text}}
+        <br>
+        <button @click="changeText">변경</button>
+    </div>
+    
+    <script src="https://unpkg.com/vue@3/dist/vue.global.js"></script>
+    <script>
+        //console.log(Vue);// 위의 저걸로 Vue 객체가 만들어짐
+        const {createApp, reactive} = Vue;
+        
+        //Vue app을 만들기 위한  기본 메소드인 createApp()를 호출하면서 app와 관련된 다양한 내용을 객체로 전달
+        //전달되는 객체는 setup()를 구성하고 객체를 리턴
+        createApp({//객체가 만들어지고 리턴될것
+            setup(){//ceate 역할
+                const message = reactive({//메세지가 참조하고 있음
+                    text: "Hello Vue!"
+                });
+                const changeText=function(){//메세지가 참조한 값을 변경?
+                    message.text = "Hello World";
+                }
+                return{
+                    message,//shorthandProperty 
+                    changeText
+                }
+            }
+        }).mount('#app');
+
+        
+    </script>
+</body>
+</html>

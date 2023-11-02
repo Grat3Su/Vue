@@ -1,0 +1,91 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>Insert title here</title>
+</head>
+<body>
+    <div id="app">
+	<h1>Emp 관리</h1>
+
+	<hr>
+	<table>
+		<thead >
+			<tr>
+				<td>EmpID</td>
+				<td>empNm</td>
+				<td>Email</td>
+				<td>hiredata</td>				
+			</tr>
+			
+		</thead>
+        <tbody>
+            <tr v-for = "(emp, index) in empList" v-bind:key="index" @click="detail(emp.employeeId)">
+                <td>{{emp.employeeId}} </td>
+                <td>{{emp.lastName}} {{emp.firstName}}</td>
+                <td>{{emp.email}} </td>
+                <td>{{emp.hireDate}} </td>
+            </tr>
+        </tbody>
+	</table>
+
+</div>
+	<!-- <hr>
+	<form>
+		<table>
+			<tbody >
+				<tr>
+					<td>studentNM</td>
+					<td><input type="text" name="studentNm" id="inputStudentNm"></td>
+				</tr>
+				<tr>
+					<td>Email</td>
+					<td><input type="text" name="email" id="inputStudentEmail"></td>
+				</tr>
+				<tr>
+					<td>Phone</td>
+					<td><input type="text" name="phone" id="inputStudentPhone"></td>
+				</tr>
+			</tbody>
+		</table>
+	</form> -->
+	<div style="border: 1px; margin: auto; text-align: center">
+		<button id="btnInsert">등록</button>
+		<button id="btnUpdate">수정</button>
+		<button id="btndelete">삭제</button>
+		<button id="btnClean">초기화</button>
+	</div>
+	<script src="https://unpkg.com/vue@3/dist/vue.global.js"></script>
+    <script>
+        const { createApp, ref } = Vue;
+
+        createApp({
+          //객체가 만들어지고 리턴될것
+        setup() {
+            const empList = ref([]);
+            const list = async () => {
+            try {
+                let response = await fetch("http://localhost:8080/emps");
+                let data = await response.json();
+                empList.value = data;
+            } catch (error) {
+                console.error(error);
+            }
+            };
+
+            const detail=function(employeeId){
+                alert(employeeId);
+            }
+            //detail();
+            list();//초기 데이터
+
+            return {
+                empList,
+                detail };
+            },
+        }).mount("#app");
+    </script>
+	
+	
+</body>
+</html>

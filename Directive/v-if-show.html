@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <div id="app">
+        {{text}}
+        <br>
+        <div v-if="flagIf"> v-if 보이나?</div>
+        <div v-show="flagShow"> v-show 보이나?</div>
+        <button @click="changeText">변경</button>
+    </div>
+    
+    <script src="https://unpkg.com/vue@3/dist/vue.global.js"></script>
+    <script>
+        //console.log(Vue);// 위의 저걸로 Vue 객체가 만들어짐
+        const {createApp, ref, computed} = Vue;
+
+        createApp({//객체가 만들어지고 리턴될것
+            setup(){
+                const text = ref("Hello");
+                const flagIf=ref(false);
+                const flagShow=ref(false);
+
+                const changeText=function(){//메세지가 참조한 값을 변경?
+                    flagIf.value = true;
+                    flagShow.value = true;
+                }
+
+                return{
+                    text,
+                    flagIf,
+                    flagShow,
+                    changeText
+                }
+            }
+        }).mount('#app');
+    </script>
+</body>
+</html>
