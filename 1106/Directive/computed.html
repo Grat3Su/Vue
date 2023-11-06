@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <div id="app">
+        <div>{{text}}</div>
+        <div>{{reversedText}}</div><!--순서가 뒤바뀐 text-->
+        <div>{{reversedText}}</div><!--순서가 뒤바뀐 text-->
+        <div>{{reversedText}}</div><!--순서가 뒤바뀐 text-->
+        <div>{{reversedTextMethod()}}</div><!--순서가 뒤바뀐 text-->
+        <div>{{reversedTextMethod()}}</div><!--순서가 뒤바뀐 text-->
+        <div>{{reversedTextMethod()}}</div><!--순서가 뒤바뀐 text-->
+        <button @click="changeText">변경</button>
+    </div>
+
+    <script src="https://unpkg.com/vue@3/dist/vue.global.js"></script>
+    <script>
+        const {createApp, ref, computed } = Vue;
+        
+        createApp({//객체가 만들어지고 리턴될것
+            setup(){
+                const text = ref('안녕하세요, vue!')
+                const reversedText=computed(()=>{
+                    console.log('reversedText()');
+                    //반드시 return이 있어야한다.
+                    return text.value.split('').reverse().join('');//결과값
+                });
+                const changeText =()=>text.value = 'Hello Vue!'
+                const reversedTextMethod=()=>{
+                    console.log('reversedTextMethod()');
+                    //반드시 return이 있어야한다.
+                    return text.value.split('').reverse().join('');//결과값
+                }
+                return{
+                    text, reversedText,changeText,reversedTextMethod
+                }
+            }
+        }).mount('#app');
+    </script>
+</body>
+</html>

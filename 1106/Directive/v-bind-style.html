@@ -1,0 +1,34 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    
+</head>
+<body>
+    <div id="app">
+        <div style="color: lime">일반 inline style</div>
+        <!-- 색을 변수화 -->
+        <div v-bind:style="{color:myColor}">변수 inline style</div>
+        <div v-bind:style="{'background-color':myBgColor}">변수로 inline style</div>
+        <div v-bind:style="{backgroundColor:myBgColor}">변수로 inline style</div>
+    </div>
+
+    <script src="https://unpkg.com/vue@3/dist/vue.global.js"></script>
+    <script>
+        const {createApp, ref } = Vue;
+        
+        createApp({//객체가 만들어지고 리턴될것
+            setup(){
+                const myColor = ref("blue");
+                const myBgColor = ref("lightpink");
+                return{
+                    myColor,
+                    myBgColor
+                }
+            }
+        }).mount('#app');
+    </script>
+</body>
+</html>

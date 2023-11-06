@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <div id="app">
+        <!-- 새 창이 뜨면서 action으로 보낸다.-->
+        <form target="_blank" action="http://naver.com"><!--manually-->
+            <input v-model="inputText1" type="text"><!--양방향 바인딩-->
+            <button type = "submit" v-on:click="callSubmit">전송</button>
+        </form>
+
+        <form id= "form2" @submit.prevent="callSubmit2" target="_blank" action="http://naver.com"><!-- event modifire prevent default-->
+            <input v-model="inputText2" type="text"><!--양방향 바인딩-->
+            <button type = "submit">전송</button>
+        </form>
+    </div>
+    
+    <script src="https://unpkg.com/vue@3/dist/vue.global.js"></script>
+    <script>
+        //console.log(Vue);// 위의 저걸로 Vue 객체가 만들어짐
+        const {createApp, ref, computed} = Vue;
+
+        createApp({//객체가 만들어지고 리턴될것
+            setup(){
+                const inputText1=ref('');
+                const callSubmit =(e)=>{
+                    if(inputText1.value==''){
+                        console.log("empty");
+                        e.preventDefault();   // 수동으로 막기
+                    }
+                }
+
+                const inputText2=ref('');
+                const callSubmit2 =(e)=>{
+                    if(inputText2.value !=''){
+                        console.log("not empty");
+                        document.querySelector("#form2").submit();
+                    }
+                }
+                return{
+                    inputText1, callSubmit,inputText2,callSubmit2
+                }
+            }
+        }).mount('#app');
+    </script>
+</body>
+</html>

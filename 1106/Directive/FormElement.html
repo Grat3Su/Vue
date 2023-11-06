@@ -1,0 +1,72 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <div id="app">
+        <h4>Input Text</h4>
+        <input type="text" v-model="inputText">{{inputText}}
+        
+        <h4>Text Area</h4>
+        <textarea v-model="textareaText"></textarea>{{textareaText}}
+
+        <h4>Checkbox - single</h4>
+        <input type="checkbox" name="" id="checkbox" v-model="checkboxValue">{{checkboxValue}}
+
+        <h4>Checkbox - multiful</h4>
+        <input type="checkbox" name="" id="java" value="J" v-model="checkboxValueList">
+        <label for="java">java</label>
+        <input type="checkbox" name="" id="spring" value="S" v-model="checkboxValueList">
+        <label for="spring">spring</label>
+        <input type="checkbox" name="" id="Vue" value="V" v-model="checkboxValueList">
+        <label for="Vue">Vue</label>
+        {{checkboxValueList}}
+
+        <h4>Radio</h4>
+        <input type="radio" name="" id="football" value="F" v-model="radioValue"> 
+        <label for="football">축구</label>
+        <input type="radio" name="" id="baseball" value="B" v-model="radioValue"> 
+        <label for="baseball">야구</label>
+        {{radioValue}}
+
+        <h4>Select</h4>
+        <select v-model="selectValue" >
+            <option value="C">Camping</option>
+            <option value="D">Drawing</option>
+            <option value="S">Singing</option>
+        </select>
+        {{selectValue}}
+
+        <h4>Select-multiful</h4>
+        <select v-model="selectValueList" multiple>
+            <option value="C">Camping</option>
+            <option value="D">Drawing</option>
+            <option value="S">Singing</option>
+        </select>
+        {{selectValueList}}
+    </div>
+
+    <script src="https://unpkg.com/vue@3/dist/vue.global.js"></script>
+    <script>
+        const {createApp, ref } = Vue;
+        
+        createApp({//객체가 만들어지고 리턴될것
+            setup(){
+                const inputText = ref('ssafy');
+                const textareaText = ref('textearea 내용');
+                const checkboxValue = ref(false);
+                const checkboxValueList = ref(['S','V']);
+                const radioValue = ref('F');
+                const selectValue = ref('D');
+                const selectValueList=ref(['C','S']);
+                return{
+                    inputText,textareaText,checkboxValue, checkboxValueList,radioValue,selectValue,selectValueList
+                }
+            }
+        }).mount('#app');
+    </script>
+</body>
+</html>

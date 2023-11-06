@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <div id="app">
+        <div id="someId">{{textId}}</div>
+        <div v-bind:id="bindId">{{textId}}</div>
+        <a v-bind:href="bindUrl">{{textUrl}}</a>
+        <div v-bind:data-boadId="boardId">{{boardId}}</div>
+        <input type="text" value="textValue">
+        <input type="text" :value="textValue">
+    </div>
+
+    <script src="https://unpkg.com/vue@3/dist/vue.global.js"></script>
+    <script>
+        const {createApp, ref } = Vue;
+        
+        createApp({//객체가 만들어지고 리턴될것
+            setup(){
+                const textId = ref('v-bind ID');
+                const bindId = ref('12345');
+                const bindUrl = ref('http://google.com');
+                const textUrl = ref('google');
+                const boardId = ref('100000');
+                const textValue = ref('입력하세요');
+                
+                return{
+                    textId,
+                    bindId,
+                    textUrl,
+                    bindUrl,
+                    boardId,
+                    textValue
+                }
+            }
+        }).mount('#app');
+    </script>
+</body>
+</html>

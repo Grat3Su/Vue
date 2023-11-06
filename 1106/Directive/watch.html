@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <div id="app">
+        <div>{{text}}</div>
+        <div>{{reversedText}}</div>
+        <div>{{reversedText}}</div>
+        <div>{{reversedText}}</div>
+        <button @click="changeText">변경</button>
+    </div>
+
+    <script src="https://unpkg.com/vue@3/dist/vue.global.js"></script>
+    <script>
+        const {createApp, ref, watch } = Vue;
+        
+        createApp({//객체가 만들어지고 리턴될것
+            setup(){
+                const text = ref('안녕하세요, vue!') ;
+                const reversedText = ref("!!!");
+                const changeText = () =>text.value = 'Hello, Vue!'
+
+                watch(text, (newVal, oldVal) =>{//watch는 callback
+                    console.log(oldVal, newVal);
+                })
+
+                return{
+                    text,reversedText,changeText
+                }
+            }
+        }).mount('#app');
+    </script>
+</body>
+</html>

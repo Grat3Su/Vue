@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <style>
+        .reddish{
+            color: crimson;
+        }
+        .bgDark{
+            background-color: darkgray;
+        }
+        .someClass{
+            border: 1px solid blue;
+        }
+
+    </style>
+</head>
+<body>
+    <div id="app">
+        <div class="reddish">{{textClass}}</div>
+
+        <!-- 뷰 변수에 따라 class를 부여하거나 부여하지 않거나 한다. boolean 변수를 이용해서 true 부여, false 부여x-->
+        <div v-bind:class="{reddish: isReddish, bgDark:isBgDark}">{{textClass}}</div>
+        <div class="someClass" v-bind:class="{reddish: isReddish, bgDark:isBgDark}">{{textClass}}</div>
+        <!-- reddish라는 클래스를 쓰고 싶은데 그것에 대해서는 isReddish로 결정하겠다-->
+
+    </div>
+
+    <script src="https://unpkg.com/vue@3/dist/vue.global.js"></script>
+    <script>
+        const {createApp, ref } = Vue;
+        
+        createApp({//객체가 만들어지고 리턴될것
+            setup(){
+                const textClass = ref('v-class Class');
+                const isReddish = ref(true);
+                const isBgDark = ref(true);
+                const isSomeClass = ref(true);
+                
+                return{
+                    textClass,
+                    isReddish,
+                    isBgDark
+                }
+            }
+        }).mount('#app');
+    </script>
+</body>
+</html>

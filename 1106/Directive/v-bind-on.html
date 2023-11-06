@@ -1,0 +1,71 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    
+</head>
+<body>
+    <div id="app">
+        <button v-on:click="alert(OuterCount +=1)">OuterCount 증가</button> <!-- Vue 밖의 변수 접근 -->
+        <button v-on:click="count += 1;">{{count}} 증가</button>
+        <button @click="increseCount()">{{count}} 증가</button>
+        {{count}}
+        
+        <br>
+        <button @:click="sayCount()">count 증가</button><!--no parameter-->
+        <button @:click="sayCount(5)">count 증가</button><!--const parameter-->
+        <button @:click="sayCount(count)">count 증가</button><!--variable parameter-->
+        {{countMessage}}
+        <hr>
+        <div v-on:mouseover="mouseMessage='마우스 오버'" v-on:mouseout="mouseMessage='마우스 아웃'">메세지는 {{mouseMessage}}</div>
+        <hr>
+        <!-- 키 이벤트를 쓸 때 () 쓰지말자. 이벤트 객체가 날아가지 않게 된다.-->
+        <input v-on:keydown="showKey" type="text" placeholder="아무키나 입력하세요">
+        <input v-on:keydown.enter="enterKey" type="text" placeholder="엔터키를 입력하세요">
+        <input v-on:keyup="multyKey" type="text" placeholder="ctrl-v + 키 입력">
+    </div>
+
+    <script src="https://unpkg.com/vue@3/dist/vue.global.js"></script>
+    <script>
+        var OuterCount = 0;
+        const {createApp, ref } = Vue;
+        
+        createApp({//객체가 만들어지고 리턴될것
+            setup(){
+                const count =ref(0);
+                const increseCount=()=> count.value +=1;
+                const countMessage=ref(0);
+                const sayCount=(count)=> countMessage.value = `${count}번 클릭했습니다.`;
+                const mouseMessage = ref('');
+                const showKey = (e) => {
+                    console.log(`${e.key} : ${e.keyCode}`)
+                    alert(`${e.key} : ${e.keyCode}`); }
+
+                const enterKey = (e) => {
+                    console.log(`${e.key} : ${e.keyCode}`)
+                    alert(`엔터키 입력`); }
+
+                const multyKey = (e) => {
+                    console.log(`${e.key} : ${e.keyCode}`)
+                    if(e.ctrlKey && e.keyCode == 67){
+                        console.log(`ctrl + c`);//ctrl c
+                    }
+                    if(e.ctrlKey && e.keyCode == 86){
+                        console.log(`ctrl + v`);//ctrl v
+                    }
+                    if(e.altKey && e.keyCode == 116){
+                        console.log(`alt + F5`);//alt F5
+                    } }
+
+
+                return{
+                    count, increseCount, sayCount,countMessage,mouseMessage,showKey, enterKey,multyKey
+                }
+
+            }
+        }).mount('#app');
+    </script>
+</body>
+</html>

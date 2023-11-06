@@ -1,0 +1,34 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <div id="app">
+        <!-- input -->
+        <input type="text" v-bind:value="inputText1" v-on:input="updateInput">
+        <input type="text" v-model="inputText2">
+    </div>
+    
+    <script src="https://unpkg.com/vue@3/dist/vue.global.js"></script>
+    <script>
+        //console.log(Vue);// 위의 저걸로 Vue 객체가 만들어짐
+        const {createApp, ref, computed} = Vue;
+
+        createApp({//객체가 만들어지고 리턴될것
+            setup(){
+                const inputText1 = ref('12345');
+                const updateInput = (e)=>inputText1.value = e.target.value;
+                
+                const inputText2 = ref('12345');
+
+                return{
+                    inputText1, updateInput,inputText2
+                }
+            }
+        }).mount('#app');
+    </script>
+</body>
+</html>
