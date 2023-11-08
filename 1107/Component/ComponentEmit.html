@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <div id="app">
+        <!-- 자식은 call parent event를 발생 부모는 call parent event를 v-on으로 기다린다.
+            발생하면 자신의 from child() 호출-->
+        <child-component v-on:call-parent="fromChild"></child-component>
+    </div>
+    <script src="https://unpkg.com/vue@3/dist/vue.global.js"></script>
+    <script>        
+        const {createApp, ref, defineComponent, emit} = Vue;
+
+        const ChildComponent = defineComponent({
+            template:`<button @click="eventBtnClick">click</button>`,
+
+            setup(props, {emit}){
+                eventBtnClick=()=> emit('call-parent');
+                return{
+                    eventBtnClick
+                }
+            }
+        });
+
+        createApp({//부모 역할
+            components:{
+                ChildComponent
+            },
+            setup() {
+                const fromChild=() => alert("from child is called");
+                return{
+                    fromChild
+                }
+            }
+        }).mount('#app');
+    </script>
+</body>
+</html>

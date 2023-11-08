@@ -1,0 +1,155 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>Insert title here</title>
+</head>
+<body>
+    <div id="app">
+	<h1>Emp 관리</h1>
+
+	<hr>
+	<table>
+		<thead >
+			<tr>
+				<td>EmpID</td>
+				<td>empNm</td>
+				<td>Email</td>
+				<td>hiredata</td>
+			</tr>
+			
+		</thead>
+        <tbody>
+            <tr v-for = "(emp, index) in empList" v-bind:key="index" @click="detailEmp(emp.employeeId)">
+                <td>{{emp.employeeId}} </td>
+                <td>{{emp.lastName}} {{emp.firstName}}</td>
+                <td>{{emp.email}} </td>
+                <td>{{emp.hireDate}} </td>
+            </tr>
+        </tbody>
+	</table>
+
+	<hr>
+	<form>
+		<table>
+			<tbody >
+				<tr>
+					<td>employeeId</td>
+					<td><input type="text" name="employeeId" v-model="emp.employeeId" placeholder="id"></td>
+				</tr>
+				<tr>
+					<td>Name</td>
+					<td><input type="text" name="lastName" v-model="emp.lastName" placeholder="lastName"></td>
+					<td><input type="text" name="firstName" v-model="emp.firstName" placeholder="firstName"></td>
+				</tr>
+				<tr>
+					<td>email</td>
+					<td><input type="text" name="email" v-model="emp.email" placeholder="email"></td>
+				</tr>
+				<tr>
+					<td>hireDate</td>
+					<td><input type="text" name="hireDate" v-model="emp.hireDate" placeholder="hireDate"></td>
+				</tr>
+			</tbody>
+		</table>
+	</form>
+	<div style="border: 1px; margin: auto; text-align: center">
+		<button @click="insertEmp">등록</button>
+		<button @click="updateEmp">수정</button>
+		<button @click="deleteEmp">삭제</button>
+		<button @click="clearEmp">초기화</button>
+	</div>
+</div>
+	<script src="https://unpkg.com/vue@3/dist/vue.global.js"></script>
+	<script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
+    <script>
+        const { createApp, ref } = Vue;
+
+        createApp({
+          //객체가 만들어지고 리턴될것
+        setup() {
+            const empList = ref([]);
+            const emp = ref([]);
+
+			const clearEmp = ()=>{
+				emp.value = {
+					employeeId:0,
+					lastName:'',
+					firstName:'',
+					email:'',
+					hireDate:''
+				};
+			}
+
+
+            const listEmp = async () => {
+				try {
+					let {data} = await axios.get("http://localhost:8080/axios/emps");
+					empList.value = data;
+				} catch (error) {
+					console.error(error);
+				}
+			};
+
+            const detailEmp = async(employeeId)=>{
+                try {
+					let {data} = await axios.get("http://localhost:8080/axios/emps/"+employeeId);
+					console.log(data);
+					emp.value = data;
+				} catch (error) {
+					console.error(error);
+				}
+            }
+
+            const insertEmp = async()=>{
+                try {
+					let {data} = await axios.post("http://localhost:8080/axios/emps",emp.value);
+					//emp.value = data;
+					listEmp();
+					clearEmp();
+				} catch (error) {
+					console.error(error);
+				}
+            }
+
+            const updateEmp = async()=>{
+                try {
+					let {data} = await axios.put("http://localhost:8080/axios/emps/"+emp.value.employeeId,emp.value);
+					//emp.value = data;
+					listEmp();
+					clearEmp();
+				} catch (error) {
+					console.error(error);
+				}
+            }
+
+            const deleteEmp = async()=>{
+                try {
+					let {data} = await axios.delete("http://localhost:8080/axios/emps/"+emp.value.employeeId);
+					//emp.value = data;
+					listEmp();
+					clearEmp();
+				} catch (error) {
+					console.error(error);
+				}
+            }
+            //detail();
+            listEmp();//초기 데이터
+
+            return {
+				emp,
+				empList,
+                listEmp,
+                detailEmp,
+				insertEmp,
+				updateEmp,
+				deleteEmp,
+				clearEmp
+			};
+            },
+        }).mount("#app");
+    </script>
+	
+	
+</body>
+</html>

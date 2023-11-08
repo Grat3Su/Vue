@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <div id="app">
+        <child-component my-data="바로 쓰기"  v-bind:parent-data="message"></child-component>
+        <child-component v-bind:parent-data="message" ></child-component>
+    </div>
+    <script src="https://unpkg.com/vue@3/dist/vue.global.js"></script>
+    <script>        
+        const {createApp, ref, defineComponent} = Vue;
+
+        const ChildComponent = defineComponent({
+            template:`<p>{{myValue}} : {{myData}} : {{parentData}}</p>`,
+            props:{
+                myData: String,
+                parentData:String
+            },//객체 방식, 리스트방식 모두 가능
+
+            props2:['myData', 'parentData'],
+
+            setup(props2){
+                const myValue = ref(200);
+                const func1=()=> console.log(data1.value);
+                const func2=()=> myValue.value+=500;
+                return{
+                    myValue, func1, func2
+                }
+            }
+        });
+
+        createApp({//부모 역할
+            components:{
+                ChildComponent
+            },
+            setup() {
+                const message = ref("부모로부터의 데이터");
+
+                return{
+                    message,
+                }
+            }
+        }).mount('#app');
+    </script>
+</body>
+</html>
